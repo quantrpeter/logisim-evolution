@@ -722,10 +722,10 @@ tasks {
     // https://stackoverflow.com/a/64703619/1235698
     System.setProperty( "org.checkstyle.google.suppressionfilter.config", "${projectDir}/config/checkstyle/suppressions.xml")
   }
-  /*checkstyleMain {
+  checkstyleMain {
     source = fileTree("src/main/java")
   }
   checkstyleTest {
     source = fileTree("src/test/java")
-  }*/
+  }
 }
