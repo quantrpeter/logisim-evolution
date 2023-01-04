@@ -47,7 +47,7 @@ public class CpuDrawSupport {
   public static int getBlockWidth(Graphics2D g2, boolean scale) {
     FontMetrics f = g2.getFontMetrics();
     int StrWidth = f.stringWidth("0x00000000") + (scale ? AppPreferences.getScaled(2) : 2);
-    int blkPrefWidth = scale ? AppPreferences.getScaled(80) : 80;
+    int blkPrefWidth = scale ? AppPreferences.getScaled(180) : 180;
     return Math.max(StrWidth, blkPrefWidth);
   }
 

@@ -53,8 +53,7 @@ public class QuantrRISCV extends SocInstanceFactory {
 				0,
 				0,
 				640,
-				(attrs.getValue(QuantrRISCVAttributes.NrOfTracesAttr).getWidth() + 1)
-				* SocBusStateInfo.TRACE_HEIGHT);
+				900);
 	}
 
 	@Override
@@ -98,42 +97,49 @@ public class QuantrRISCV extends SocInstanceFactory {
 //		if (scale) {
 //			g2.setFont(AppPreferences.getScaledFont(g.getFont()));
 //		}
-		g2.translate(loc.getX(), loc.getY() + 50);
+		g2.translate(loc.getX()+20, loc.getY() + 50);
 		int blockWidth = getBlockWidth(g2, scale);
-		int blockX = ((scale ? AppPreferences.getScaled(160) : 160) - blockWidth) / 2;
+		int blockX = ((scale ? AppPreferences.getScaled(260) : 260) - blockWidth) / 2;
 		if (scale) {
 			blockWidth = AppPreferences.getDownScaled(blockWidth);
 			blockX = AppPreferences.getDownScaled(blockX);
 		}
-		g2.setColor(Color.decode("68A691"));
-		bds = getBounds(0, 0, 160, 495, scale);
+		g2.setColor(Color.decode("#a2d2ff"));
+		bds = getBounds(0, 0, 260, 495, scale);
 		g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
-		g2.setColor(Color.getColor("68A691"));
-		bds = getBounds(0, 0, 160, 15, scale);
-		g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+		
+//		g2.setColor(Color.decode("#bde0fe"));
+//		bds = getBounds(0, 0, 320, 15, scale);
+//		g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
 
 		g2.setColor(Color.black);
-		bds = getBounds(80, 6, 0, 0, scale);
-		GraphicsUtil.drawCenteredText(g2, S.get("Rv32imRegisterFile"), bds.getX(), bds.getY());
+		bds = getBounds(130, 6, 0, 0, scale);
+		GraphicsUtil.drawCenteredText(g2, "Registers", bds.getX(), bds.getY());
 
-		g2.setColor(Color.BLACK);
-		bds = getBounds(0, 0, 160, 495, scale);
-		g2.drawRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+//		g2.setColor(Color.BLACK);
+//		bds = getBounds(0, 0, 160, 495, scale);
+//		g2.drawRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+		
 		for (int i = 0; i < 32; i++) {
+			g2.setColor(Color.BLACK);
 			bds = getBounds(20, 21 + i * 15, 0, 0, scale);
 			GraphicsUtil.drawCenteredText(g2, "x" + i, bds.getX(), bds.getY());
-			g2.setColor(Color.BLUE);
+			
+			g2.setColor(Color.decode("#ffafcc"));
 			bds = getBounds(blockX, 16 + i * 15, blockWidth, 13, scale);
 			g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+			
 			g2.setColor(Color.BLACK);
 			g2.drawRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
-			g2.setColor(Color.BLUE);
-			bds = getBounds(blockX + blockWidth / 2, 21 + i * 15, 0, 0, scale);
-			GraphicsUtil.drawCenteredText(g2, "c" + i, bds.getX(), bds.getY());
-			g2.setColor(Color.darkGray);
-			bds = getBounds(140, 21 + i * 15, 0, 0, scale);
-			GraphicsUtil.drawCenteredText(g2, "a" + i, bds.getX(), bds.getY());
+			
 			g2.setColor(Color.BLACK);
+			bds = getBounds(blockX + blockWidth / 2, 21 + i * 15, 0, 0, scale);
+			GraphicsUtil.drawCenteredText(g2, "0000000000000000", bds.getX(), bds.getY());
+			
+			g2.setColor(Color.darkGray);
+			bds = getBounds(240, 21 + i * 15, 0, 0, scale);
+			GraphicsUtil.drawCenteredText(g2, "a" + i, bds.getX(), bds.getY());
+			
 		}
 		g2.dispose();
 	}
