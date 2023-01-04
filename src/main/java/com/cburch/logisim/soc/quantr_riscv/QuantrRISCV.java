@@ -28,6 +28,7 @@ import com.cburch.logisim.util.GraphicsUtil;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import hk.quantr.javalib.CommonLib;
 
 /**
  *
@@ -105,7 +106,7 @@ public class QuantrRISCV extends SocInstanceFactory {
 			blockWidth = AppPreferences.getDownScaled(blockWidth);
 			blockX = AppPreferences.getDownScaled(blockX);
 		}
-		g2.setColor(CommonLib.("68A691"));
+		g2.setColor(Color.decode("68A691"));
 		bds = getBounds(0, 0, 160, 495, scale);
 		g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
 		g2.setColor(Color.getColor("68A691"));
