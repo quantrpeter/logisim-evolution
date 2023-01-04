@@ -22,7 +22,7 @@ plugins {
 
 repositories {
   mavenCentral()
-  maven(url = "https://maven.quantr.hk/repo")
+  //maven(url = "https://maven.quantr.hk/repo")
 }
 
 application {
@@ -42,7 +42,7 @@ dependencies {
   implementation("com.formdev:flatlaf:2.4")
   implementation("commons-cli:commons-cli:1.5.0")
   implementation("org.apache.commons:commons-text:1.9")
-  implementation("hk.quantr:quantr-java-library:1.0")
+  //implementation("hk.quantr:quantr-java-library:1.0")
 
   // NOTE: Do not upgrade the jflex version. Later versions do not work.
   compileOnly("de.jflex:jflex:1.4.1")
@@ -722,10 +722,10 @@ tasks {
     // https://stackoverflow.com/a/64703619/1235698
     System.setProperty( "org.checkstyle.google.suppressionfilter.config", "${projectDir}/config/checkstyle/suppressions.xml")
   }
-  checkstyleMain {
+  /*checkstyleMain {
     source = fileTree("src/main/java")
   }
   checkstyleTest {
     source = fileTree("src/test/java")
-  }
+  }*/
 }

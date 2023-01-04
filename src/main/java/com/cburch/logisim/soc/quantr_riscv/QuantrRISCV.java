@@ -28,7 +28,6 @@ import com.cburch.logisim.util.GraphicsUtil;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import hk.quantr.javalib.CommonLib;
 
 /**
  *
