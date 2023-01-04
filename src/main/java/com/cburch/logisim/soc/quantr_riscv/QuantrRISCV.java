@@ -11,6 +11,7 @@ import com.cburch.logisim.instance.InstancePainter;
 import com.cburch.logisim.instance.InstanceState;
 import com.cburch.logisim.instance.Port;
 import com.cburch.logisim.instance.StdAttr;
+import com.cburch.logisim.prefs.AppPreferences;
 import static com.cburch.logisim.soc.Strings.S;
 import static com.cburch.logisim.soc.bus.SocBus.MENU_PROVIDER;
 import com.cburch.logisim.soc.bus.SocBusAttributes;
@@ -20,8 +21,11 @@ import com.cburch.logisim.soc.data.SocBusStateInfo;
 import com.cburch.logisim.soc.data.SocInstanceFactory;
 import static com.cburch.logisim.soc.data.SocInstanceFactory.SOC_MASTER;
 import com.cburch.logisim.soc.data.SocProcessorInterface;
+import static com.cburch.logisim.soc.gui.CpuDrawSupport.getBlockWidth;
+import static com.cburch.logisim.soc.gui.CpuDrawSupport.getBounds;
 import com.cburch.logisim.tools.MenuExtender;
 import com.cburch.logisim.util.GraphicsUtil;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
@@ -82,16 +86,56 @@ public class QuantrRISCV extends SocInstanceFactory {
 	public void paintInstance(InstancePainter painter) {
 		painter.drawBounds();
 		painter.drawLabel();
-		painter.drawPort(0, "Reset", Direction.EAST);
+//		painter.drawPort(0, "Reset", Direction.EAST);
 		Graphics2D g2 = (Graphics2D) painter.getGraphics();
 		Location loc = painter.getLocation();
-		Font f = g2.getFont();
+//		Font f = g2.getFont();
 		g2.setFont(StdAttr.DEFAULT_LABEL_FONT);
-		GraphicsUtil.drawCenteredText(g2, "Quantr RISC-V Interconnect", loc.getX() + 320, loc.getY() + 10);
-		g2.setFont(f);
-		if (painter.isPrintView()) {
-			return;
+		GraphicsUtil.drawCenteredText(g2, "Quantr RISC-V", loc.getX() + 320, loc.getY() + 10);
+//		g2.setFont(f);
+		Bounds bds;
+		boolean scale = true;
+//		if (scale) {
+//			g2.setFont(AppPreferences.getScaledFont(g.getFont()));
+//		}
+		g2.translate(loc.getX(), loc.getY() + 50);
+		int blockWidth = getBlockWidth(g2, scale);
+		int blockX = ((scale ? AppPreferences.getScaled(160) : 160) - blockWidth) / 2;
+		if (scale) {
+			blockWidth = AppPreferences.getDownScaled(blockWidth);
+			blockX = AppPreferences.getDownScaled(blockX);
 		}
+		g2.setColor(CommonLib.("68A691"));
+		bds = getBounds(0, 0, 160, 495, scale);
+		g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+		g2.setColor(Color.getColor("68A691"));
+		bds = getBounds(0, 0, 160, 15, scale);
+		g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+
+		g2.setColor(Color.black);
+		bds = getBounds(80, 6, 0, 0, scale);
+		GraphicsUtil.drawCenteredText(g2, S.get("Rv32imRegisterFile"), bds.getX(), bds.getY());
+
+		g2.setColor(Color.BLACK);
+		bds = getBounds(0, 0, 160, 495, scale);
+		g2.drawRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+		for (int i = 0; i < 32; i++) {
+			bds = getBounds(20, 21 + i * 15, 0, 0, scale);
+			GraphicsUtil.drawCenteredText(g2, "x" + i, bds.getX(), bds.getY());
+			g2.setColor(Color.BLUE);
+			bds = getBounds(blockX, 16 + i * 15, blockWidth, 13, scale);
+			g2.fillRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+			g2.setColor(Color.BLACK);
+			g2.drawRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
+			g2.setColor(Color.BLUE);
+			bds = getBounds(blockX + blockWidth / 2, 21 + i * 15, 0, 0, scale);
+			GraphicsUtil.drawCenteredText(g2, "c" + i, bds.getX(), bds.getY());
+			g2.setColor(Color.darkGray);
+			bds = getBounds(140, 21 + i * 15, 0, 0, scale);
+			GraphicsUtil.drawCenteredText(g2, "a" + i, bds.getX(), bds.getY());
+			g2.setColor(Color.BLACK);
+		}
+		g2.dispose();
 	}
 
 	@Override
