@@ -39,7 +39,6 @@ public class QuantrRISCV extends SocInstanceFactory {
 
 	public QuantrRISCV() {
 		super(_ID, S.getter("QuantrRISCVComponent"), SOC_MASTER);
-		System.out.println("hi");
 	}
 
 	@Override
